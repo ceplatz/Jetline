@@ -26,6 +26,20 @@
   d.addEventListener('keydown',function(e){ if(e.key==='Escape') closeAll(); });
   d.querySelectorAll('.menu a, .nav>ul>li>a').forEach(function(a){ a.addEventListener('click',function(){ body.classList.remove('menu-open'); closeAll(); }); });
 
+  /* ---------- Back to top: floating button, and the logo scrolls up first ---------- */
+  var reduceM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var toTop=d.querySelector('.to-top');
+  var goTop=function(){ window.scrollTo({top:0,behavior:reduceM?'auto':'smooth'}); };
+  if(toTop){
+    var vis=function(){ toTop.classList.toggle('show', window.scrollY>600); };
+    vis(); window.addEventListener('scroll',vis,{passive:true});
+    toTop.addEventListener('click',goTop);
+  }
+  var brand=d.querySelector('.brand');
+  if(brand) brand.addEventListener('click',function(e){
+    if(window.scrollY>120){ e.preventDefault(); goTop(); }   // first click: back to top; at the top it goes home
+  });
+
   /* ---------- Reveal on scroll ---------- */
   var els=d.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
