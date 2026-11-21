@@ -1,0 +1,28 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Contact-form enquiries: anyone may submit one, nobody can read, change or delete them
+    // from the website. Jetline reads them in the Firebase console (or via the Admin SDK).
+    match /enquiries/{id} {
+      allow read, update, delete: if false;
+      allow create: if request.resource.data.keys().hasOnly(
+                         ['firstName', 'lastName', 'email', 'phone', 'licence', 'message', 'createdAt', 'source'])
+                    && request.resource.data.keys().hasAll(
+                         ['firstName', 'lastName', 'email', 'phone', 'message', 'createdAt'])
+                    && request.resource.data.firstName is string && request.resource.data.firstName.size() > 0 && request.resource.data.firstName.size() <= 100
+                    && request.resource.data.lastName  is string && request.resource.data.lastName.size()  > 0 && request.resource.data.lastName.size()  <= 100
+                    && request.resource.data.email     is string && request.resource.data.email.matches('.+@.+\\..+') && request.resource.data.email.size() <= 200
+                    && request.resource.data.phone     is string && request.resource.data.phone.size()     > 0 && request.resource.data.phone.size()     <= 50
+                    && (!('licence' in request.resource.data) || (request.resource.data.licence is string && request.resource.data.licence.size() <= 200))
+                    && request.resource.data.message   is string && request.resource.data.message.size()   > 0 && request.resource.data.message.size()   <= 5000
+                    && (!('source' in request.resource.data) || (request.resource.data.source is string && request.resource.data.source.size() <= 100))
+                    && request.resource.data.createdAt == request.time;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

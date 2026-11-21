@@ -625,6 +625,7 @@ footer.site{padding:56px 0 110px;border-top:1px solid var(--line);background:#ff
           </div>
           <div class="f"><label for="lic">Nationality + licence CAA</label><input id="lic" name="lic" placeholder="e.g. German, EASA CPL/IR"><div class="hint">Nationality and the country of your CAA, if any.</div></div>
           <div class="f"><label for="msg">Your message *</label><textarea id="msg" name="msg" placeholder="Type your pilot training request here. We will revert as soon as possible." required></textarea></div>
+          <div style="position:absolute;left:-9999px;height:0;overflow:hidden" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
           <button class="btn btn-primary" type="submit" style="width:100%">Send message <svg><use href="#i-arrow"/></svg></button>
           <div class="form-msg" id="form-msg" role="status"></div>
         </form>
@@ -679,19 +680,45 @@ document.documentElement.classList.add('js');
     els.forEach(function(el){io.observe(el)});
   } else { els.forEach(function(el){el.classList.add('in')}); }
 
-  // Contact form: no backend in this concept, so it prepares an email to Jetline.
+  // Contact form: saves the enquiry to Firestore (Firebase project config comes from Firebase Hosting's
+  // reserved /__/firebase/init.json). If that is not available (e.g. a local preview) it falls back to
+  // preparing an email to Jetline instead.
   var f=document.getElementById('contact-form'), m=document.getElementById('form-msg');
-  f.addEventListener('submit',function(ev){
+  var SDK='https://www.gstatic.com/firebasejs/10.14.1/';
+  function show(html,err){ m.className='form-msg show'; m.innerHTML=html; m.style.borderColor=err?'#f3b4b4':''; m.style.background=err?'#fff5f5':''; }
+  function mailtoFallback(d){
+    var body='Name: '+d.firstName+' '+d.lastName+'\nEmail: '+d.email+'\nPhone: '+d.phone+'\nNationality + licence CAA: '+d.licence+'\n\n'+d.message;
+    window.location.href='mailto:info@jetline-training.com?subject='+encodeURIComponent('Training request from '+d.firstName+' '+d.lastName)+'&body='+encodeURIComponent(body);
+    show('Your email app should open with your request ready to send. If it does not, please write to <b>info@jetline-training.com</b> directly.');
+  }
+  async function saveToFirestore(d){
+    var cfg=await fetch('/__/firebase/init.json',{cache:'no-store'});
+    if(!cfg.ok) throw new Error('no-firebase-config');
+    cfg=await cfg.json();
+    var app=await import(SDK+'firebase-app.js'), fs=await import(SDK+'firebase-firestore.js');
+    var db=fs.getFirestore(app.initializeApp(cfg));
+    await fs.addDoc(fs.collection(db,'enquiries'),{
+      firstName:d.firstName,lastName:d.lastName,email:d.email,phone:d.phone,
+      licence:d.licence,message:d.message,source:'website',createdAt:fs.serverTimestamp()
+    });
+  }
+  f.addEventListener('submit',async function(ev){
     ev.preventDefault();
     var v=function(id){return document.getElementById(id).value.trim()};
-    if(!v('fn')||!v('ln')||!v('em')||!v('ph')||!v('msg')){
-      m.className='form-msg show'; m.textContent='Please fill in the fields marked with *.'; return;
+    var d={firstName:v('fn'),lastName:v('ln'),email:v('em'),phone:v('ph'),licence:v('lic'),message:v('msg')};
+    if(!d.firstName||!d.lastName||!d.email||!d.phone||!d.message){ show('Please fill in the fields marked with *.',true); return; }
+    if(!/^.+@.+\..+$/.test(d.email)){ show('Please enter a valid email address.',true); return; }
+    if(document.getElementById('website').value){ show('Thank you. We will get back to you as soon as possible.'); return; } // honeypot: bots only
+    var btn=f.querySelector('button[type=submit]'); btn.disabled=true; show('Sending…');
+    try{
+      await saveToFirestore(d);
+      f.reset();
+      show('<b>Thank you.</b> We have received your request and will get back to you as soon as possible.');
+    }catch(e){
+      if(e&&e.message==='no-firebase-config'){ mailtoFallback(d); }
+      else { show('Sorry, something went wrong sending your request. Please email <b>info@jetline-training.com</b> directly.',true); }
     }
-    var body='Name: '+v('fn')+' '+v('ln')+'\nEmail: '+v('em')+'\nPhone: '+v('ph')+'\nNationality + licence CAA: '+v('lic')+'\n\n'+v('msg');
-    var href='mailto:info@jetline-training.com?subject='+encodeURIComponent('Training request from '+v('fn')+' '+v('ln'))+'&body='+encodeURIComponent(body);
-    m.className='form-msg show';
-    m.innerHTML='Your email app should open with your request ready to send. If it does not, please write to <b>info@jetline-training.com</b> directly.';
-    window.location.href=href;
+    btn.disabled=false;
   });
 })();
 </script>
