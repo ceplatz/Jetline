@@ -1,19 +1,13 @@
 from layout import page, tick
 
 SPLASH = """<div id="splash" role="dialog" aria-label="Welcome to Jetline Training">
-  <img class="sp-logo" src="assets/logo.jpg" alt="Jetline Training">
-  <button class="sp-skip" data-skip>Skip intro →</button>
-  <div class="sp-in">
-    <div class="sp-words">
-      <div class="sp-w a"><span>Type Rated.</span></div>
-      <div class="sp-w b"><span>Line Checked.</span></div>
-      <div class="sp-w c"><span>Flight Deck Ready.</span></div>
-    </div>
-    <a class="btn btn-primary sp-enter" href="#" data-skip>Enter site <svg><use href="#i-arrow"/></svg></a>
-    <p class="sp-hint">Press Esc or Enter to skip</p>
+  <div class="sp-line" id="spLine"></div>
+  <div class="sp-word" id="spWord" aria-hidden="true"></div>
+  <div class="sp-final" id="spFinal">
+    <img src="assets/logo.jpg" alt="Jetline Training" width="1000" height="564">
+    <div class="sp-tag">Airline pilot training <b>academy</b></div>
   </div>
-  <svg class="sp-line" aria-hidden="true"><path pathLength="1" d=""/></svg>
-  <svg class="sp-plane" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-plane"/></svg>
+  <button class="sp-skip" id="spSkip" type="button">Skip intro →</button>
 </div>
 """
 

@@ -33,29 +33,40 @@
     els.forEach(function(el){io.observe(el)});
   } else { els.forEach(function(el){el.classList.add('in')}); }
 
-  /* ---------- Splash intro (home page only, once per visit, skippable) ---------- */
+  /* ---------- Splash intro (home page only, once per visit, skippable) ----------
+     line sweeps in -> three words, one at a time -> line hands over to the logo -> fade into the page */
   var sp=d.getElementById('splash');
   if(sp && root.classList.contains('js-splash')){
     body.classList.add('locked');
-    var svg=sp.querySelector('.sp-line'), path=svg.querySelector('path'), plane=sp.querySelector('.sp-plane');
-    function layout(){
-      var W=window.innerWidth, H=svg.getBoundingClientRect().height||window.innerHeight*.34;
-      var dd='M -30 '+(H*.96)+' C '+(W*.3)+' '+(H*1.04)+', '+(W*.55)+' '+(H*.5)+', '+(W+40)+' '+(H*.18);
-      svg.setAttribute('viewBox','0 0 '+W+' '+H); path.setAttribute('d',dd);
-      if(plane){ var top=svg.getBoundingClientRect().top; plane.style.top=top+'px'; plane.style.offsetPath='path("'+dd+'")'; }
-    }
-    layout(); window.addEventListener('resize',layout);
-    var done=false, timer;
-    function closeSplash(){
-      if(done) return; done=true; clearTimeout(timer);
+    var word=d.getElementById('spWord'), fin=d.getElementById('spFinal'), timers=[], done=false;
+    var WORDS=['Type Rated.','Line Checked.','Flight Deck Ready.'];
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var at=function(ms,fn){ timers.push(setTimeout(fn,ms)); };
+    var finish=function(){
+      if(done) return; done=true; timers.forEach(clearTimeout);
       try{ sessionStorage.setItem('jt-splash','1'); }catch(e){}
       sp.classList.add('out'); body.classList.remove('locked');
-      setTimeout(function(){ root.classList.remove('js-splash'); },900);
+      setTimeout(function(){ root.classList.remove('js-splash'); },1000);
+    };
+    if(reduce){ d.getElementById('spLine').style.display='none'; fin.classList.add('in'); at(1500,finish); }
+    else{
+      sp.classList.add('glow','sweep');
+      var t=900;
+      WORDS.forEach(function(w){
+        at(t,function(){
+          word.classList.remove('in','out');
+          word.style.transition='none'; word.textContent=w; void word.offsetWidth; word.style.transition='';
+          word.classList.add('in');
+        });
+        at(t+1000,function(){ word.classList.remove('in'); word.classList.add('out'); });
+        t+=1150;
+      });
+      at(t,function(){ sp.classList.add('merge'); fin.classList.add('in'); });
+      at(t+2300,finish);
     }
-    sp.querySelectorAll('[data-skip]').forEach(function(b){ b.addEventListener('click',function(e){ e.preventDefault(); closeSplash(); }); });
-    d.addEventListener('keydown',function(e){ if(!done && (e.key==='Escape'||e.key==='Enter'||e.key===' ')) closeSplash(); });
-    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    timer=setTimeout(closeSplash, reduce?1200:7200);
+    sp.addEventListener('click',finish);
+    d.addEventListener('keydown',function(e){ if(!done&&(e.key==='Escape'||e.key==='Enter'||e.key===' ')){ e.preventDefault(); finish(); } });
+    setTimeout(finish,9000);
   }
 
   /* ---------- Contact form ---------- */
