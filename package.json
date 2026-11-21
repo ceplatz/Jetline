@@ -1,0 +1,8 @@
+{
+  "name": "jetline-training-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jetline Training website (static), served by a tiny Node server for Firebase App Hosting",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=20" }
+}

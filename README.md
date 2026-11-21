@@ -5,14 +5,25 @@ content and branding of jetline-training.com. Type ratings are the hero; line tr
 secondary, newer offering.
 
 ```
-public/          <- what gets deployed
+public/          <- the site (what gets served)
   index.html     <- the whole site (HTML + CSS + a little JS)
   assets/        <- logo and optimised photos
-firebase.json    <- Firebase Hosting config
+firebase.json    <- Firebase Hosting config (CLI route)
+server.js        <- tiny static server for App Hosting
+apphosting.yaml  <- App Hosting settings
 ```
 
 ## Preview locally
 Open `public/index.html` in a browser. No build step.
+
+## Deploy with Firebase App Hosting (no installs)
+`server.js` + `package.json` + `apphosting.yaml` let App Hosting run the site straight from GitHub:
+1. Firebase console -> **App Hosting** -> **Get started** (needs the Blaze plan) -> connect this GitHub repo.
+2. Settings: root directory `/`, live branch `main`, enable automatic rollouts.
+3. Each push to `main` then builds and deploys automatically.
+
+If a Firebase web app is linked to the backend, the contact form also works (the server exposes
+`/__/firebase/init.json` from App Hosting's `FIREBASE_WEBAPP_CONFIG`).
 
 ## Firebase (project: `jetline-training`)
 
