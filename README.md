@@ -16,7 +16,17 @@ apphosting.yaml  <- App Hosting settings
 ## Preview locally
 Open `public/index.html` in a browser. No build step.
 
-## Deploy with Firebase App Hosting (no installs)
+## Deploy with GitHub Actions (private key, no installs)
+`.github/workflows/firebase-hosting.yml` deploys `public/` to Firebase Hosting on every push to `main`.
+One-time: Firebase console -> Project settings -> Service accounts -> **Generate new private key**, then
+GitHub repo -> Settings -> Secrets and variables -> Actions -> new secret `FIREBASE_SERVICE_ACCOUNT`
+containing the whole JSON file. Never commit the key to the repo.
+
+## Demo mode
+The contact form is in demo mode (`var DEMO=true;` in `public/index.html`): it shows a
+"This is a demo site" message and sends nothing. Set it to `false` to go live.
+
+## Deploy with Firebase App Hosting (alternative, no installs)
 `server.js` + `package.json` + `apphosting.yaml` let App Hosting run the site straight from GitHub:
 1. Firebase console -> **App Hosting** -> **Get started** (needs the Blaze plan) -> connect this GitHub repo.
 2. Settings: root directory `/`, live branch `main`, enable automatic rollouts.

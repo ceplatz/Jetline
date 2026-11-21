@@ -684,6 +684,8 @@ document.documentElement.classList.add('js');
   // reserved /__/firebase/init.json). If that is not available (e.g. a local preview) it falls back to
   // preparing an email to Jetline instead.
   var f=document.getElementById('contact-form'), m=document.getElementById('form-msg');
+  // DEMO MODE: while true, the form sends nothing anywhere. Set to false to go live.
+  var DEMO=true;
   var SDK='https://www.gstatic.com/firebasejs/10.14.1/';
   function show(html,err){ m.className='form-msg show'; m.innerHTML=html; m.style.borderColor=err?'#f3b4b4':''; m.style.background=err?'#fff5f5':''; }
   function mailtoFallback(d){
@@ -708,6 +710,7 @@ document.documentElement.classList.add('js');
     var d={firstName:v('fn'),lastName:v('ln'),email:v('em'),phone:v('ph'),licence:v('lic'),message:v('msg')};
     if(!d.firstName||!d.lastName||!d.email||!d.phone||!d.message){ show('Please fill in the fields marked with *.',true); return; }
     if(!/^.+@.+\..+$/.test(d.email)){ show('Please enter a valid email address.',true); return; }
+    if(DEMO){ show('<b>This is a demo site.</b> Your message was not sent. On the live site, this form delivers your request to Jetline Training.'); return; }
     if(document.getElementById('website').value){ show('Thank you. We will get back to you as soon as possible.'); return; } // honeypot: bots only
     var btn=f.querySelector('button[type=submit]'); btn.disabled=true; show('Sending…');
     try{
