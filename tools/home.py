@@ -4,7 +4,7 @@ SPLASH = """<div id="splash" role="dialog" aria-label="Welcome to Jetline Traini
   <div class="sp-line" id="spLine"></div>
   <div class="sp-word" id="spWord" aria-hidden="true"></div>
   <div class="sp-final" id="spFinal">
-    <img src="assets/logo.jpg" alt="Jetline Training" width="1000" height="564">
+    <img src="assets/logo.svg" alt="Jetline Training" width="1955" height="1080">
     <div class="sp-tag">Airline pilot training <b>academy</b></div>
   </div>
   <button class="sp-skip" id="spSkip" type="button">Skip intro →</button>

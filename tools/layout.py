@@ -81,7 +81,9 @@ def head(title, desc, home=False):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#ffffff">
-<link rel="icon" href="assets/logo.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -108,7 +110,7 @@ def header(current):
         )
     return f"""<header class="site" id="top">
   <div class="wrap nav">
-    <a class="brand" href="index.html?skip" aria-label="Jetline Training — home"><img src="assets/logo.jpg" alt="Jetline Training" width="1000" height="564"></a>
+    <a class="brand" href="index.html?skip" aria-label="Jetline Training — home"><img src="assets/logo.svg" alt="Jetline Training" width="1955" height="1080"></a>
     <ul id="menu">
       {''.join(items)}
       <li><a class="btn btn-primary btn-sm" href="#contact">Contact us</a></li>
@@ -175,7 +177,7 @@ def footer():
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <img src="assets/logo.jpg" alt="Jetline Training" width="1000" height="564" style="mix-blend-mode:multiply">
+        <img src="assets/logo.svg" alt="Jetline Training" width="1955" height="1080">
         <p><b style="color:var(--navy)">Type Rated. Line Checked. Flight Deck Ready.</b></p>
       </div>
       {''.join(cols)}
