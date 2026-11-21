@@ -1,3 +1,5 @@
 .DS_Store
 screenshots/
 *-debug.log
+__pycache__/
+*.pyc
