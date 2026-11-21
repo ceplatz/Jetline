@@ -5,16 +5,27 @@ content and branding of jetline-training.com. Type ratings are the hero; line tr
 secondary, newer offering.
 
 ```
-public/          <- the site (what gets served)
-  index.html     <- the whole site (HTML + CSS + a little JS)
-  assets/        <- logo and optimised photos
-firebase.json    <- Firebase Hosting config (CLI route)
-server.js        <- tiny static server for App Hosting
-apphosting.yaml  <- App Hosting settings
+public/            <- the site (what gets served)
+  index.html       <- home (splash intro + overview)
+  type-ratings.html, academy.html, careers.html, prep.html, about.html
+  assets/          <- styles.css, site.js, logo and optimised photos
+tools/             <- page generator (edit content here, then rebuild)
+firebase.json      <- Firebase Hosting config (CLI route)
+server.js          <- tiny static server for App Hosting
 ```
 
+## Editing content
+The HTML pages are generated. Edit the Python files in `tools/` (one per page, plus `layout.py` for the
+header, dropdown menus, footer and contact block), then run:
+
+```bash
+python3 tools/build.py
+```
+
+The splash intro shows once per browser session. Add `?skip` to any URL to bypass it.
+
 ## Preview locally
-Open `public/index.html` in a browser. No build step.
+Open `public/index.html` in a browser.
 
 ## Deploy with GitHub Actions (private key, no installs)
 `.github/workflows/firebase-hosting.yml` deploys `public/` to Firebase Hosting on every push to `main`.
