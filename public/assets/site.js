@@ -31,7 +31,8 @@
   var toTop=d.querySelector('.to-top');
   var goTop=function(){ window.scrollTo({top:0,behavior:reduceM?'auto':'smooth'}); };
   if(toTop){
-    var vis=function(){ toTop.classList.toggle('show', window.scrollY>600); };
+    var mcta=d.querySelector('.mobile-cta');
+    var vis=function(){ toTop.classList.toggle('show', window.scrollY>600); if(mcta) mcta.classList.toggle('show', window.scrollY>420); };
     vis(); window.addEventListener('scroll',vis,{passive:true});
     toTop.addEventListener('click',goTop);
   }
