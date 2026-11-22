@@ -5,7 +5,7 @@ P = "academy.html"
 MAIN = (
     phero("Airline Academy", "0 to ATPL. Modular and flexible.",
           "No licence yet? Train from private pilot to frozen ATPL and A320 type rating, step by step, with no contract for the whole programme upfront.",
-          chips(P, [("Ab-initio", "#ab-initio"), ("Airline Pilot Program", "#program"), ("Modular vs integrated", "#modular"),
+          chips(P, [("Ab-initio", "#ab-initio"), ("Airline Pilot Programme", "#program"), ("Modular vs integrated", "#modular"),
                     ("How to become a pilot", "#how-to"), ("ICAO to EASA", "#icao")]))
     + f"""
 <section class="sec" id="ab-initio">
@@ -30,7 +30,7 @@ MAIN = (
 
 <section class="sec tint" id="program">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">Airline Pilot Program</span><h2>Four steps to the flight deck.</h2>
+    <div class="sec-head reveal"><span class="eyebrow">Airline Pilot Programme</span><h2>Four steps to the flight deck.</h2>
       <p class="lead">Join or pause at any time and pay step by step. Optional flight instructor (FI) rating on top.</p></div>
     <div class="grid g4">
       <div class="step reveal"><div class="n">01</div><h3>PPL</h3><p>Basic flying on a small single-engine aircraft under VFR.</p></div>
@@ -96,4 +96,4 @@ MAIN = (
 
 def build():
     return page(P, "Airline Academy — Jetline Training",
-                "Ab-initio 0 to ATPL pilot training, the airline pilot program, modular vs integrated, how to become a pilot and ICAO to EASA licence conversion.", MAIN)
+                "Ab-initio 0 to ATPL pilot training, the airline pilot programme, modular vs integrated, how to become a pilot and ICAO to EASA licence conversion.", MAIN)

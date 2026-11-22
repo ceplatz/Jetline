@@ -44,7 +44,7 @@ MAIN = """
     <div class="sec-head reveal">
       <span class="eyebrow">Type Ratings</span>
       <h2>The A320 Type Rating, in three steps.</h2>
-      <p class="lead">EASA-approved, delivered by airline Captains. From your couch to the flight deck.</p>
+      <p class="lead">EASA-approved, delivered by airline Captains. From online theory to the flight deck.</p>
     </div>
     <div class="grid g4">
       <div class="step reveal"><div class="n">STEP 01</div><h3>Theory</h3><p>100+ hours online and classroom, with VR.</p><span class="dur">3–4 weeks · at home</span></div>
@@ -107,9 +107,9 @@ MAIN = """
   <div class="wrap">
     <div class="sec-head reveal"><span class="eyebrow">In their words</span><h2>Graduates, now flying.</h2></div>
     <div class="grid g3">
-      <div class="quote reveal"><p>Airlines expect qualified pilots, so the next logical step was clear. The instructors are highly competent, but above all extremely pedagogical and supportive.</p><footer><div class="av">NC</div><div><b>Nicolas C.</b>France</div></footer></div>
-      <div class="quote reveal d1"><p>The atmosphere is so nice and friendly, without any push on you. Jetline training is synonymous with one word: Freedom.</p><footer><div class="av">YS</div><div><b>Yasir S.</b>Norway</div></footer></div>
-      <div class="quote reveal d2"><p>I got a job as a First Officer. The type rating was the best decision I ever made. I received invitations very quickly after the rating.</p><footer><div class="av">AL</div><div><b>Anthony L.</b>Germany</div></footer></div>
+      <div class="quote reveal"><p>Airlines expect qualified pilots, so the next logical step was clear… The instructors are highly competent and experienced, but above all extremely pedagogical and supportive.</p><footer><div class="av">NC</div><div><b>Nicolas C.</b>France</div></footer></div>
+      <div class="quote reveal d1"><p>The atmosphere which you will find during the learning process and online sessions with the instructors is so nice and friendly without any push on you.</p><footer><div class="av">YS</div><div><b>Yasir S.</b>Norway</div></footer></div>
+      <div class="quote reveal d2"><p>I got a job as a First Officer… the type rating was the best decision I ever made; I received invitations very quickly after the rating.</p><footer><div class="av">AL</div><div><b>Anthony L.</b>Germany</div></footer></div>
     </div>
     <p class="small" style="text-align:center;margin-top:22px">More feedback on <a href="https://www.trustpilot.com/review/www.jetline-training.com" style="color:var(--blue);font-weight:700">Trustpilot</a>.</p>
   </div>

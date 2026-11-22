@@ -33,7 +33,7 @@ NAV = [
     ]),
     ("Airline Academy", "academy.html", [
         ("0 to ATPL, Ab-initio", "PPL to frozen ATPL", "#ab-initio"),
-        ("Airline Pilot Program", "Four steps, pay as you go", "#program"),
+        ("Airline Pilot Programme", "Four steps, pay as you go", "#program"),
         ("Modular vs Integrated", "Why modular", "#modular"),
         ("How to Become a Pilot", "The EASA roadmap", "#how-to"),
         ("ICAO to EASA", "Licence conversion", "#icao"),
@@ -81,6 +81,14 @@ def head(title, desc, home=False):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#ffffff">
+<meta name="robots" content="noindex, nofollow"><!-- demo site: remove at launch -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Jetline Training">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:image" content="https://jetline-training.web.app/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -93,6 +101,7 @@ def head(title, desc, home=False):
 </head>
 <body>
 {ICONS}
+<a class="skip-link" href="#main">Skip to content</a>
 """
 
 
@@ -124,7 +133,7 @@ def header(current):
 CONTACT = """<section class="sec tint" id="contact">
   <div class="wrap">
     <div class="cta-band reveal">
-      <span class="eyebrow" style="color:#cfe0ff">Get in touch</span>
+      <span class="eyebrow" style="color:#fff">Get in touch</span>
       <h2>Contact us for more information.</h2>
       <p>Tell us your licence and your goals. We reply with a personal offer.</p>
       <a class="btn btn-white" href="#message">Send us a message <svg><use href="#i-arrow"/></svg></a>
@@ -201,7 +210,7 @@ def footer():
 
 
 def page(current, title, desc, main, home=False, splash=""):
-    return head(title, desc, home) + splash + header(current) + "<main>\n" + main + "\n" + CONTACT + "</main>\n" + footer()
+    return head(title, desc, home) + splash + header(current) + '<main id="main">\n' + main + "\n" + CONTACT + "</main>\n" + footer()
 
 
 def phero(eyebrow, h1, lead, chips=""):

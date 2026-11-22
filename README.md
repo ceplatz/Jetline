@@ -14,6 +14,12 @@ firebase.json      <- Firebase Hosting config (CLI route)
 server.js          <- tiny static server for App Hosting
 ```
 
+## Before launch
+- The pages carry `<meta name="robots" content="noindex">` and `public/robots.txt` blocks crawlers, so this
+  demo does not compete with jetline-training.com in search. Remove both when going live.
+- Turn off demo mode in `public/assets/site.js` (`var DEMO=true;`) to enable the contact form.
+- Social preview image: `public/assets/og.jpg` (the URL in `tools/layout.py` assumes jetline-training.web.app).
+
 ## Editing content
 The HTML pages are generated. Edit the Python files in `tools/` (one per page, plus `layout.py` for the
 header, dropdown menus, footer and contact block), then run:

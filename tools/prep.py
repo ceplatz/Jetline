@@ -53,7 +53,7 @@ MAIN = (
       <div class="card lift reveal d1"><h3>Instructor course parts</h3><p>Teaching and learning online for SFI and TRI (MPA) courses.</p><span class="tag">Free</span></div>
       <div class="card lift reveal d2"><h3>TRI / SFI refresher</h3><p>Online seminar for revalidation or renewal, 38 steps.</p><span class="tag">EUR 795</span></div>
     </div>
-    <div class="row-btns"><a class="btn btn-ghost" href="{SITE}/online-programs">All online programs <svg><use href="#i-arrow"/></svg></a></div>
+    <div class="row-btns"><a class="btn btn-ghost" href="{SITE}/online-programs">All online programmes <svg><use href="#i-arrow"/></svg></a></div>
   </div>
 </section>
 
