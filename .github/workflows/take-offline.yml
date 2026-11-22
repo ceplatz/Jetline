@@ -1,0 +1,19 @@
+name: Take site offline
+
+# Run manually from the Actions tab. Stops Firebase Hosting from serving the site.
+# To bring it back, run the "Deploy to Firebase Hosting" workflow.
+on:
+  workflow_dispatch:
+
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disable Firebase Hosting
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          printf '%s' "$SERVICE_ACCOUNT" > "$RUNNER_TEMP/sa.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json"
+          npx -y firebase-tools@latest hosting:disable --project jetline-training --force
+          rm -f "$RUNNER_TEMP/sa.json"
